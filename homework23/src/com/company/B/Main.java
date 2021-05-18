@@ -1,6 +1,4 @@
-package com.company;
-
-import com.company.B.Test;
+package com.company.B;
 
 import javax.swing.*;
 
