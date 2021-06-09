@@ -37,7 +37,7 @@ public class Main {
     }
 
     public static void writeCode(FileWriter fileWriter) throws IOException {
-        URL oracle = new URL("https://raw.githubusercontent.com/chestarpro/Java-HomeWorks/homework29/myCode.txt");
+        URL oracle = new URL("https://raw.githubusercontent.com/chestarpro/Java-HomeWorks/homework29/homework29/src/com/company/Main.java");
         Scanner scanner = new Scanner(oracle.openStream());
         while (scanner.hasNextLine()) {
             fileWriter.write(scanner.nextLine() + "\n");
