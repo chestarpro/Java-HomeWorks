@@ -14,14 +14,14 @@ public class Main {
         }
 
         try (FileReader fileReader = new FileReader("file.txt");
-             FileWriter fileWriter1 = new FileWriter("file1.txt")) {
+             FileWriter fileWriter1 = new FileWriter("file2.txt")) {
             Scanner sc = new Scanner(fileReader);
             while (sc.hasNextLine()) {
                 fileWriter1.write(sc.nextLine().replaceAll("\\s+",""));
             }
             fileReader.close();
             fileWriter1.close();
-            checkFileLength(new File("file1.txt"));
+            checkFileLength(new File("file2.txt"));
         } catch (FileNotFoundException e) {
             System.out.println("Файл не доступен");
         }
@@ -37,7 +37,7 @@ public class Main {
     }
 
     public static void writeCode(FileWriter fileWriter) throws IOException {
-        URL oracle = new URL("https://raw.githubusercontent.com/chestarpro/Java-HomeWorks/homework28/homework28/Bob%20Marley%20-%20Sun%20Is%20Shining.txt");
+        URL oracle = new URL("https://raw.githubusercontent.com/chestarpro/Java-HomeWorks/homework29/myCode.txt");
         Scanner scanner = new Scanner(oracle.openStream());
         while (scanner.hasNextLine()) {
             fileWriter.write(scanner.nextLine() + "\n");
