@@ -29,6 +29,6 @@ public class Dog {
 
     @Override
     public String toString() {
-        return this.name + this.age + " ";
+        return this.name + this.age;
     }
 }

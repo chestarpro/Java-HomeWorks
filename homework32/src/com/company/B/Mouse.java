@@ -29,6 +29,6 @@ public class Mouse {
 
     @Override
     public String toString() {
-        return this.name + this.age + " ";
+        return this.name + this.age;
     }
 }
