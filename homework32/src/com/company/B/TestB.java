@@ -62,24 +62,18 @@ public class TestB {
         int catSumAge = 0;
         int dogSumAge = 0;
         int mouseSumAge = 0;
-
         for (int i = 0; i < animalsArrayList.size(); i++) {
             if(animalsArrayList.get(i) instanceof Cat) {
                 catSumAge = catSumAge + ((Cat)animalsLinkedList.get(i)).getAge();
-                sortAnimalsLinkedList.add(0,  ((Cat)animalsLinkedList.get(i)));
+                sortAnimalsLinkedList.addFirst((Cat)animalsLinkedList.get(i));
             }
             if (animalsArrayList.get(i) instanceof Dog) {
                 dogSumAge = dogSumAge + ((Dog)animalsLinkedList.get(i)).getAge();
-                sortAnimalsLinkedList.add(sortAnimalsLinkedList.size(), ((Dog)animalsLinkedList.get(i)));
+                sortAnimalsLinkedList.add(sortAnimalsLinkedList.size()/ 2 + 1, ((Dog)animalsLinkedList.get(i)));
             }
             if(animalsArrayList.get(i) instanceof Mouse) {
                 mouseSumAge =mouseSumAge + ((Mouse)animalsLinkedList.get(i)).getAge();
-            }
-        }
-
-        for (int i = 0; i < sortAnimalsLinkedList.size(); i++) {
-            if(animalsArrayList.get(i) instanceof Mouse) {
-                sortAnimalsLinkedList.add(((Mouse)animalsLinkedList.get(i)));
+                sortAnimalsLinkedList.addLast(((Mouse)animalsLinkedList.get(i)));
             }
         }
         System.out.printf("""
