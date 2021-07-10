@@ -1,0 +1,76 @@
+create table university (
+	id serial primary key,
+	university_name varchar not null
+);
+
+create table faculties (
+	id serial primary key,
+	faculty_name varchar unique not null,
+	univer_id integer references university (id)
+);
+
+create table group_students (
+	id serial primary key,
+	faculty_id integer references faculties(id),
+	code_group varchar unique not null
+);
+
+create table students (
+	id serial primary key,
+	fio varchar not null,
+	group_id integer references group_students(id)
+);
+
+create table subjects (
+	id serial primary key,
+	subjects_name varchar unique not null
+);
+
+create table assessments (
+	student_id integer references students (id),
+	assessment integer check(assessment >= 0 and assessment <= 100),
+	subject_id integer references subjects (id)
+);
+
+--------------------------------------------------------------------
+
+insert into university (university_name) values ('IT-Academy');
+
+insert into faculties (faculty_name, univer_id) values ('Java', 1), ('Pyton', 1);
+
+insert into group_students (faculty_id, code_group) values (1, 'JV-W21'), (2, 'PY-W21');
+
+insert into students (fio, group_id) values ('Chyngyz Sheraly uulu', 1), ('Bek Bekov Bekovisch', 2);
+
+insert into subjects (subjects_name) values ('OOP'), ('SQL');
+
+insert into assessments (student_id, assessment, subject_id)
+values (1, 91, 1), (1, 86, 2), (2, 90, 1), (2, 80, 2);
+
+--------------------------------------------------------------------
+
+select s.fio, sub.subjects_name, a.assessment from assessments a
+join subjects sub on a.subject_id = sub.id
+join students s on a.student_id = s.id
+where s.fio = 'Chyngyz Sheraly uulu'
+
+select s.fio, sub.subjects_name, a.assessment from assessments a
+join subjects sub on a.subject_id = sub.id
+join students s on a.student_id = s.id
+where s.fio = 'Bek Bekov Bekovisch'
+
+select s.fio, gs.code_group, f.faculty_name, u.university_name, avg (a.assessment) as avarage_rating from students s
+join assessments a on s.id = a.student_id
+join group_students gs on s.group_id = gs.id
+join faculties f on gs.faculty_id = f.id
+join university u on f.univer_id = u.id
+where s.fio = 'Chyngyz Sheraly uulu'
+group by s.fio, gs.code_group, f.faculty_name, u.university_name
+
+select s.fio, gs.code_group, f.faculty_name, u.university_name, avg (a.assessment) as avarage_rating from students s
+join assessments a on s.id = a.student_id
+join group_students gs on s.group_id = gs.id
+join faculties f on gs.faculty_id = f.id
+join university u on f.univer_id = u.id
+where s.fio = 'Bek Bekov Bekovisch'
+group by s.fio, gs.code_group, f.faculty_name, u.university_name

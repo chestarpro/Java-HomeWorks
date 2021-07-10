@@ -1,44 +1,41 @@
 create table kind_of_sport (
-id serial primary key,
-name varchar not null
+	id serial primary key,
+	sport_name varchar unique not null
 );
 
 create table trainer (
-id serial primary key,
-fio varchar not null,
-kind_of_sport_id integer references kind_of_sport(id)
+	id serial primary key,
+	trainer_fio varchar not null,
+	kind_of_sport_id integer references kind_of_sport(id)
 );
 
 create table visitors (
-id serial primary key,
-fio varchar not null,
-date_of_birth date not null,
-gender varchar not null
+	id serial primary key,
+	visitor_fio varchar not null,
+	date_of_birth date not null,
+	gender varchar not null
 );
 
 create table visits (
-visitor_id integer references visitors(id),
-visit_time timestamp,
-trainer_id integer references trainer (id) 
+	visitor_id integer references visitors(id),
+	visit_time timestamp,
+	trainer_id integer references trainer (id) 
 );
 
 -----------------------------------------------------
 
-insert into kind_of_sport (name) 
+insert into kind_of_sport (sport_name) 
 values ('Boxing'), ('Swimming'), ('Powerlifting');
-commit;
 
-insert into trainer (fio, kind_of_sport_id)
-values ('trainer1', 1), ('trainer2', 2), ('trainer3', 3);
-commit;
+insert into trainer (trainer_fio, kind_of_sport_id)
+values ('Boxer Baike', 1), ('Akula Baike', 2), ('Shkav Baike', 3);
 
-insert into visitors (fio, date_of_birth, gender) 
-values ('visitor1', '2000-01-01', 'man'), 
-	   ('visitor2', '2000-01-02', 'man'), 
-       ('visitor3', '2000-01-03', 'woman'), 
-       ('visitor4', '2000-01-04', 'woman'),
-       ('visitor5', '2000-01-05', 'man');
-       commit;
+insert into visitors (visitor_fio, date_of_birth, gender) 
+values ('Visitor Baike 1', '2000-01-01', 'man'), 
+	   ('Visitor Baike 2', '2000-01-02', 'man'), 
+       ('Visitor Eje 3', '2000-01-03', 'woman'), 
+       ('Visitor Eje 4', '2000-01-04', 'woman'),
+       ('Visitor Baike 5', '2000-01-05', 'man');
        
 insert into visits (visitor_id, visit_time, trainer_id)
 values (1, '2021-01-01 09:00', 1),
@@ -46,8 +43,11 @@ values (1, '2021-01-01 09:00', 1),
 	   (3, '2021-01-01 10:00', 2), 
 	   (4, '2021-01-01 11:00', 2), 
 	   (5, '2021-01-01 09:00', 1);
-	   commit;
+	
 
-select * from visits v 
-where  v.trainer_id = 2
+select v2.visitor_fio, v.visit_time, k.sport_name from visits v 
+join trainer t on v.trainer_id = t.id
+join visitors v2 on v.visitor_id = v2.id
+join kind_of_sport k  on t.kind_of_sport_id = k.id
+where k.sport_name = 'Swimming'
 order by v.visit_time desc;
