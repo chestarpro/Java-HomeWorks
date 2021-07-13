@@ -34,18 +34,27 @@ values ('Chyngyz Sheraly uulu', 1),
        ('Jek Jekov Jekovich', 2),
        ('Vek Vekov Vekovich', 1)
        
-       
+            
 -------------------------C------------------------
+       
+create table people (
+	id serial primary key,
+	full_name varchar not null,
+	date_birth date not null
+);
+
 create table country (
  id serial primary key,
  name varchar unique not null,
- code varchar (3) unique not null,
- population integer,
- 
+ code integer unique not null,
+ population integer not null,
+ president integer references people(id)
 );
-       
-create table people (
- id serial primary key,
- full_name varchar not null,
- country_id integer references country(id)
+
+create table city(
+	id serial primary key,
+	name varchar unique not null,
+	country_id integer references country(id),
+	population integer not null,
+	mayor integer references people(id)
 );

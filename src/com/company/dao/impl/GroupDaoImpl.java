@@ -13,14 +13,10 @@ public class GroupDaoImpl extends BaseDao implements GroupDao {
     @Override
     public List<Group> getAllGroup() {
         List<Group> groups = null;
-        Connection connection = null;
-        ResultSet resultSet = null;
-        PreparedStatement statement = null;
 
-        try {
-            connection = connect();
-            statement = connection.prepareStatement("SELECT * FROM  group_students\n");
-            resultSet = statement.executeQuery();
+        try (Connection connection = connect();
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM  group_students\n");
+             ResultSet resultSet = statement.executeQuery();) {
             groups = new ArrayList<>();
 
             while (resultSet.next()) {
