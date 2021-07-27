@@ -1,0 +1,13 @@
+create table users(
+	id serial primary key,
+	login varchar(20) unique not null,
+	email varchar(20) unique not null,
+	password varchar(20) not null,
+	date_of_registration timestamp not null
+);
+
+create table users_logs(
+	id serial primary key,
+	is_success boolean not null, 
+	user_id integer references users(id) not null
+);
