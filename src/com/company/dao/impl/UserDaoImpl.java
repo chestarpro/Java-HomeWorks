@@ -131,13 +131,16 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 
     @Override
     public void writeLog(UserLogModel userLog) {
-        String sql = "INSERT INTO users_logs(is_success, user_id) " +
-                "VALUES(?, ?)";
+        String sql = "INSERT INTO users_logs(is_success, user_id, time_log) " +
+                "VALUES(?, ?, ?)";
 
         try(Connection connection = connect();
             PreparedStatement ps = connection.prepareStatement(sql)) {
+            Date date = new Date();
+            userLog.setTimLog(new Timestamp(date.getTime()));
             ps.setBoolean(1, userLog.getSuccess());
             ps.setInt(2, userLog.getUserId());
+            ps.setTimestamp(3, userLog.getTimLog());
             ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
@@ -185,5 +188,30 @@ public class UserDaoImpl extends BaseDao implements UserDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    @Override
+    public Timestamp getLastFalseLogTime() {
+        String sql = "select time_log from users_logs " +
+                "where id = (select max(id) from users_logs) and is_success = false";
+        ResultSet resultSet = null;
+        Timestamp timestamp= null;
+        try(Connection connection = connect();
+            PreparedStatement ps = connection.prepareStatement(sql)) {
+            resultSet = ps.executeQuery();
+            if(resultSet.next()) {
+                timestamp = resultSet.getTimestamp("time_log");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return timestamp;
     }
 }

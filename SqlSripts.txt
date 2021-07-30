@@ -9,5 +9,6 @@ create table users(
 create table users_logs(
 	id serial primary key,
 	is_success boolean not null, 
-	user_id integer references users(id) not null
+	user_id integer references users(id) not null,
+	time_log timestamp not null
 );

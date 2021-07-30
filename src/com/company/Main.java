@@ -1,11 +1,5 @@
 package com.company;
-
-import com.company.dao.UserDao;
-import com.company.dao.impl.UserDaoImpl;
 import com.company.model.UserModel;
-
-import java.util.Date;
-import java.util.Scanner;
 
 public class Main {
 
@@ -16,23 +10,22 @@ public class Main {
         userModel.setLogin("login1");
         userModel.setEmail("login1@mail.ru");
 
-//        try {
-//            userService.register(userModel);
-//        }catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
-//        try {
-//            userService.authorize();
-//        } catch (IllegalArgumentException e) {
-//            e.printStackTrace();
-//        }
-
         try {
-            userService.unBlock();
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
+            userService.register(userModel);
+        }catch (Exception e) {
+            System.out.println(e);
         }
 
+        try {
+            userService.authorize();
+        } catch (IllegalArgumentException e) {
+            System.out.println(e);
+        }
+
+//        try {
+//            userService.unBlock();
+//        } catch (IllegalArgumentException e) {
+//            System.out.println(e);
+//        }
     }
 }

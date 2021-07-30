@@ -5,6 +5,8 @@ import com.company.dao.impl.UserDaoImpl;
 import com.company.model.UserLogModel;
 import com.company.model.UserModel;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Scanner;
 
 public class UserService {
@@ -50,15 +52,25 @@ public class UserService {
             if (userDao.getCountFalseLog(userDb.getId()) < 3 && result) {
                 userDao.deleteFalseLog(userDb.getId());
             }
+
             if(userDao.getCountFalseLog(userDb.getId()) == 3) {
-                System.out.println("Вы заблокированны!");
-            } else {
-                userDao.writeLog(userLog);
-                if (result) {
-                    System.out.println("Вы авторизованы!");
-                } else System.out.println("Не верные данные!");
+                if(new Timestamp(new Date().getTime()).getMinutes() >= userDao.getLastFalseLogTime().getMinutes() + 3) {
+                    userDao.deleteFalseLog(userDb.getId());
+                } else {
+                    System.out.println("Вы заблокированны на 5 минут!");
+                    return;
+                }
             }
-        } else System.out.println("Пользователь не найден!");
+            userDao.writeLog(userLog);
+            if (result) {
+                    System.out.println("Вы авторизованы!");
+                } else {
+                    if(userDao.getCountFalseLog(userDb.getId()) == 3) {
+                        System.out.println("Вы заблокированны на 5 минут!");
+                    } else System.out.println("Не верные данные!");
+                }
+        }
+        else System.out.println("Пользователь не найден!");
     }
 
     public void unBlock() throws IllegalArgumentException {
