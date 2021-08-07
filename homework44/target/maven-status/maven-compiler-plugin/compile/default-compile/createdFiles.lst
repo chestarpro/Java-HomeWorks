@@ -1,0 +1,6 @@
+org\example\dao\impl\UserDaoImpl.class
+org\example\servlet\RegistrationServlet.class
+org\example\model\UserModel.class
+org\example\dao\UserDao.class
+org\example\Main.class
+org\example\dao\BaseDao.class
