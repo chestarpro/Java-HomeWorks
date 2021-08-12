@@ -1,0 +1,15 @@
+create table cars(
+	id_car serial primary key,
+	car_number varchar(10) unique not null,
+	model varchar(50) not null,
+	engine_volume float not null,
+	year_of_issue date not null,
+	color varchar(20) not null
+);
+
+insert into cars(car_number, model, engine_volume, year_of_issue, color) 
+values ('A1234BB', 'Toyota Windom', 3.0, '2021-01-01', 'Blue'),
+('A5678BB', 'Lexus ES', 3.5, '2021-01-01', 'Back'),
+('A9101BB', 'BMW X5', 4.4, '2021-01-01', 'White'),
+('A1213BB', 'Mercedes Е63 AMG', 6.3, '2021-01-01', 'Grey'),
+('A1415BB', 'Subaru Impreza wrx sti', 2.5, '2021-01-01', 'Green')
