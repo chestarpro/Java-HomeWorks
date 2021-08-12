@@ -9,13 +9,10 @@ import java.io.IOException;
 
 @WebServlet("/gotoGoogle")
 public class GoToGoogleServlet extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
-
-        String site = "https://www.google.com/";
-
-        resp.setStatus(resp.SC_MOVED_TEMPORARILY);
-        resp.setHeader("Location", site);
+        resp.sendRedirect("https://www.google.com/");
     }
 }

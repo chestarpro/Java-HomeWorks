@@ -31,7 +31,7 @@
          <h1> <%= num1 %> + <%= num2 %> = <%= num1+num2 %> </h1>
          <h2>
          Sum of two random numbers
-         <h2>
+         </h2>
       </center>
    </body>
 </html>

@@ -14,10 +14,8 @@
    <body>
       <center>
          <h1>
-            Time <%= new java.sql.Timestamp(new java.util.Date().getTime()).getHours() %> :
-            <%= new java.sql.Timestamp(new java.util.Date().getTime()).getMinutes() %> :
-            <%= new java.sql.Timestamp(new java.util.Date().getTime()).getSeconds() %> |
-            Date <%= new java.sql.Date(new java.util.Date().getTime()) %>
+            Time <%= java.time.LocalTime.now() %> |
+            Date <%= java.time.LocalDate.now() %>
          </h1>
       </center>
    </body>
