@@ -41,7 +41,7 @@ public class City implements Comparable<City> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(code);
+        return Objects.hash(name, code);
     }
 
     @Override
