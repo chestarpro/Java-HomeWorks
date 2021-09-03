@@ -1,0 +1,10 @@
+create table users(
+    id_user serial primary key,
+    user_name varchar(50) unique not null,
+    user_password varchar(50) not null
+);
+
+insert into users(user_name, user_password)
+values ('User1', '123'), 
+       ('User2', '1234'), 
+       ('User3', '12345')
