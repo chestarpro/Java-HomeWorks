@@ -1,8 +1,5 @@
 package com.company.taskA;
 
-import com.company.taskA.Factorial;
-import com.company.taskA.RootDegree;
-
 public class Main {
 
     public static void main(String[] args) {
