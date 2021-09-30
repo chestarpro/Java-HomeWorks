@@ -1,0 +1,10 @@
+org\example\entity\Mentor.class
+org\example\entity\Course.class
+org\example\entity\Student$StudentBuilder.class
+org\example\Application.class
+org\example\entity\Mentor$MentorBuilder.class
+org\example\util\HibernateUtil.class
+org\example\entity\Group$GroupBuilder.class
+org\example\entity\Group.class
+org\example\entity\Course$CourseBuilder.class
+org\example\entity\Student.class
