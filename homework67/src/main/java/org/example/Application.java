@@ -5,6 +5,7 @@ import org.example.entity.Country;
 import org.example.entity.KindOfSport;
 import org.example.entity.Team;
 import org.example.util.HibernateUtil;
+import org.hibernate.NonUniqueResultException;
 import org.hibernate.Session;
 
 import java.util.Arrays;
@@ -103,7 +104,7 @@ public class Application {
 
         System.out.println("=========================================================");
 
-        getChampionshipByName("USA basketball championship").forEach(System.out::println);
+        System.out.println(getChampionshipByName("USA basketball championship"));
 
         System.out.println("=========================================================");
 
@@ -112,7 +113,6 @@ public class Application {
         System.out.println("=========================================================");
 
         getAllTeamItalyChampionship().forEach(System.out::println);
-
     }
 
     public static <T> T saveEntity(T entity) {
@@ -125,14 +125,17 @@ public class Application {
         return entity;
     }
 
-    public static List<Championship> getChampionshipByName(String name) {
-            Session session =
-                    HibernateUtil.getSessionFactory().openSession();
-            List<Championship> employees = session.createQuery(
-                    "select distinct c from Championship c where upper(c.name) = upper(:name)", Championship.class)
-                    .setParameter("name", name).list();
+    public static Championship getChampionshipByName(String name) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()){
+            Championship championships = session.createQuery(
+                            "FROM Championship c where upper(c.name) = upper(:name)", Championship.class)
+                    .setParameter("name", name).uniqueResult();
             session.close();
-            return employees;
+            return championships;
+        } catch (NonUniqueResultException e) {
+            System.err.println(e.getMessage());
+            return null;
+        }
     }
 
     public static List<Team> getAllTeamItalyChampionship() { // Ну в принципе в чемпионате Италии могут участвовать только команды с Италии :)
