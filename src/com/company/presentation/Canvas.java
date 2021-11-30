@@ -18,9 +18,10 @@ public class Canvas extends JPanel {
         super.paint(g);
         try {
             image = ImageIO.read(model.getCurrentFile());
+            image = image.getScaledInstance(1250, 750, Image.SCALE_FAST);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        g.drawImage(image, 280, 35, null);
+        g.drawImage(image, 130, 20, null);
     }
 }
