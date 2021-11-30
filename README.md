@@ -1,1 +1,1 @@
-# Java-HomeWorks
+# Proxy Pattern Example Code
